@@ -1,5 +1,7 @@
 import time
+from lib2to3.pgen2 import driver
 
+from selenium.webdriver.support.wait import WebDriverWait
 
 from pages.base_page import BasePage
 
@@ -9,14 +11,33 @@ from pages.base_page import BasePage
 class Dashboard(BasePage):
     expected_title = 'Scouts panel'
     dashboard_url = "https://scouts-test.futbolkolektyw.pl/"
+    wait = WebDriverWait(driver, 10)
+
 
     def title_of_page(self):
-        time.sleep(5)
+        self.wait_for_element_to_be_clickable(self.link_last_created_player_xpath)
         assert self.get_page_title(self.dashboard_url) == self.expected_title
 
     def find_user(self, user_name):
-        time.sleep(1)
+        self.visibility_of_element_located("//span[text()='" + user_name + "']")
         assert self.find_element("//span[text()='" + user_name + "']")
+
+    def click_language(self):
+        self.click_on_the_element(self.menu_language_xpath)
+        time.sleep(1)
+
+    def check_language(self, language):
+        return self.find_element("//span[text()='" + language + "']")
+
+    def change_language(self):
+        is_english = self.check_language('English')
+        self.click_language()
+        assert is_english != self.check_language("English")
+
+    def click_on_log_out(self):
+        self.click_on_the_element(self.menu_sign_out_xpath)
+        time.sleep(1)
+
 
     menu_main_page_xpath = "//*[contains(@d, 'M10')]/../../.."
     menu_players_xpath = "//*[contains(@d, 'M12 1')]/../../.."

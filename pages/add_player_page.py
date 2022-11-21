@@ -32,7 +32,9 @@ class AddPlayer(BasePage):
         self.field_send_keys(self.add_main_position_xpath, pos)
 
     def click_on_the_add_player_button(self):
+        self.wait_for_element_to_be_clickable(self.submit_button_xpath)
         self.click_on_the_element(self.submit_button_xpath)
+
 
     def title_of_add_player_page(self):
         assert self.get_page_title(self.login_url) == self.expected_add_player_title

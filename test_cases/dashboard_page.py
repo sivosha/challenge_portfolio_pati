@@ -9,7 +9,7 @@ from pages.login_page import LoginPage
 from utils.settings import DRIVER_PATH, IMPLICITLY_WAIT
 from PIL import Image
 
-class TestAddPlayer(unittest.TestCase):
+class TestDashboardPage(unittest.TestCase):
 
     @classmethod
     def setUp(self):
@@ -19,7 +19,7 @@ class TestAddPlayer(unittest.TestCase):
         self.driver.fullscreen_window()
         self.driver.implicitly_wait(IMPLICITLY_WAIT)
 
-    def test_add_a_player_to_the_system(self):
+    def test_change_language_page(self):
         user_login = LoginPage(self.driver)
         user_login.title_of_page()
         user_login.type_in_email('user03@getnada.com')
@@ -28,25 +28,23 @@ class TestAddPlayer(unittest.TestCase):
 
         dashboard_page = Dashboard(self.driver)
         dashboard_page.title_of_page()
+        dashboard_page.change_language()
+        self.driver.save_screenshot("change_language.png")
+        image = Image.open("change_language.png")
 
-        player_name = 'Player'
-        player_surname = 'Surname'
-        player_age = '07/07/2007'
-        player_position = 'goalkeeper'
+    def test_logout(self):
+        user_login = LoginPage(self.driver)
+        user_login.title_of_page()
+        user_login.type_in_email('user03@getnada.com')
+        user_login.type_in_password('Test-1234')
+        user_login.click_on_the_sign_in_button()
 
-        add_player = AddPlayer(self.driver)
-        add_player.title_of_page()
-        add_player.type_in_name(player_name)
-        add_player.type_in_surname(player_surname)
-        add_player.type_in_age(player_age)
-        add_player.type_in_position(player_position)
-        add_player.click_on_the_add_player_button()
+        dashboard_page = Dashboard(self.driver)
+        dashboard_page.click_on_log_out()
 
-        dashboard_page.find_user(player_name + ' ' + player_surname)
+        user_login = LoginPage(self.driver)
+        user_login.title_of_page()
 
-        self.driver.save_screenshot("added_player.png")
-        image = Image.open("added_player.png")
-        image.show()
     @classmethod
     def tearDown(self):
         self.driver.quit()
