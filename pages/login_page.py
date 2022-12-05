@@ -7,12 +7,12 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class LoginPage(BasePage):
     login_field_xpath = "//input[@id='login']"
-    login_url = "https://scouts-test.futbolkolektyw.pl/en"
+    login_url = "https://scouts.futbolkolektyw.pl/en/"
     password_field_xpath = "//*[@id='password']"
     sign_in_button_xpath = "//*[text()= 'Sign in']"
 
     expected_title = 'Scouts panel - sign in'
-    header_of_box = 'Scouts Panel'
+    header_of_box = 'PANEL SKAUTINGOWY'
     get_password_reminder = "//a"
 
     header_of_box_xpath = '//h5'

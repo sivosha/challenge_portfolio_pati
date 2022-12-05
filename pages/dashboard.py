@@ -9,8 +9,8 @@ from pages.base_page import BasePage
 
 
 class Dashboard(BasePage):
-    expected_title = 'Scouts panel'
-    dashboard_url = "https://scouts-test.futbolkolektyw.pl/"
+    expected_title = 'PANEL SKAUTINGOWY'
+    dashboard_url = "https://scouts.futbolkolektyw.pl/en/"
     wait = WebDriverWait(driver, 10)
 
 
